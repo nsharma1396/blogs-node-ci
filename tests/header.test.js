@@ -2,7 +2,7 @@ Number.prototype._called = {}; // Hack solution: fixes error of _called not defi
 const Page = require("./helpers/page");
 
 /**
- * @type {import ("puppeteer").Page}
+ * @type {Page & import ("puppeteer").Page}
  */
 let page;
 
