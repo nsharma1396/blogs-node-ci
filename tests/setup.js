@@ -1,3 +1,4 @@
+Number.prototype._called = {}; // Hack solution: fixes error of _called not defined
 jest.setTimeout(30000);
 
 require("dotenv").config();

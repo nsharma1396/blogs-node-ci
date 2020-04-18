@@ -1,4 +1,3 @@
-Number.prototype._called = {}; // Hack solution: fixes error of _called not defined
 const Page = require("./helpers/page");
 
 /**
