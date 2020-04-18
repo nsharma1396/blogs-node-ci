@@ -1,31 +1,18 @@
-const puppeteer = require("puppeteer");
-const sessionFactory = require("./factories/sessionFactory");
-const userFactory = require("./factories/userFactory");
+Number.prototype._called = {}; // Hack solution: fixes error of _called not defined
+const Page = require("./helpers/page");
 
-/**
- * @type {import ("puppeteer").Browser}
- */
-let browser;
 /**
  * @type {import ("puppeteer").Page}
  */
 let page;
 
 beforeEach(async () => {
-  browser = await puppeteer
-    .launch
-    //   {
-    //   headless: false,
-    // }
-    ();
-  page = await browser.newPage();
+  page = await Page.build();
   await page.goto("http://localhost:3000");
 });
 
 test("The header has the correct text", async () => {
   const text = await page.$eval("a.brand-logo", (el) => el.innerHTML);
-
-  console.log(text);
 
   expect(text).toEqual("Blogster");
 });
@@ -33,19 +20,11 @@ test("The header has the correct text", async () => {
 test("Clicking login starts oauth flow", async () => {
   await page.click(".right a");
   const url = page.url();
-  console.log(url);
   expect(url).toMatch(/accounts\.google\.com/);
 });
 
-test.only("When signed in, shows logout button", async () => {
-  const user = await userFactory();
-  const { session, sig } = sessionFactory(user);
-
-  await page.setCookie({ name: "session", value: session });
-  await page.setCookie({ name: "session.sig", value: sig });
-  await page.goto("http://localhost:3000");
-
-  await page.waitFor('a[href="/auth/logout"]');
+test("When signed in, shows logout button", async () => {
+  await page.login();
 
   const logoutAnchorText = await page.$eval(
     "a[href='/auth/logout']",
@@ -56,5 +35,5 @@ test.only("When signed in, shows logout button", async () => {
 });
 
 afterEach(async () => {
-  await browser.close();
+  await page.close();
 });
