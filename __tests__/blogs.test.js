@@ -38,7 +38,7 @@ describe("When logged in", () => {
       expect(text).toEqual("Please confirm your entries");
     });
 
-    test("Submitting then submitting adds blog to index page", async () => {
+    test("Submitting then saving adds blog to index page", async () => {
       await page.click("button.green");
       await page.waitFor(".card");
 
