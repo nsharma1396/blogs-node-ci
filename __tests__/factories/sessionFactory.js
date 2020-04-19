@@ -1,4 +1,5 @@
 const Keygrip = require("keygrip");
+const keys = require("../../config/keys");
 
 module.exports = (user) => {
   const sessionObject = {
@@ -8,7 +9,7 @@ module.exports = (user) => {
   };
   const session = Buffer.from(JSON.stringify(sessionObject)).toString("base64");
 
-  const keygrip = new Keygrip([process.env.COOKIE_KEY]);
+  const keygrip = new Keygrip([keys.cookieKey]);
   const sig = keygrip.sign("session=" + session);
   return {
     session,
