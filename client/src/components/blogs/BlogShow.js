@@ -14,7 +14,7 @@ class BlogShow extends Component {
           src={`https://ci-blogs.s3.ap-south-1.amazonaws.com/${this.props.blog.imageUrl}`}
           width={250}
           height={250}
-          alt="blog-image"
+          alt="blog-content"
         />
       );
     }
