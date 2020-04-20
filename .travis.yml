@@ -1,5 +1,7 @@
 language: node_js
 node_js:
+  - node
+  - lts/*
   - "8"
 dist: trusty
 addons:
@@ -23,7 +25,7 @@ install:
   - npm run build
 script:
   - nohup npm run start &
-  - sleep 10
+  - sleep 5
   - npm run test
 # allow headful tests
 before_install:
