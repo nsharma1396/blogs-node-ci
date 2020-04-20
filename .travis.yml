@@ -3,10 +3,12 @@ node_js:
   - "8"
 dist: trusty
 addons:
+  chrome: stable
   apt:
     packages:
       # This is required to run new chrome on old trusty
       - libnss3
+sudo: required
 services:
   - mongodb
   - redis-server
