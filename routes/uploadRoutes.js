@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const uuid = require("uuid/v1");
+const uuid = require("uuid");
 const requireLogin = require("../middlewares/requireLogin");
 const keys = require("../config/keys");
 
