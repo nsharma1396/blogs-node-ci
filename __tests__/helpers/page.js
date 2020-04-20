@@ -59,8 +59,6 @@ class CustomPage {
 
     await this.page.goto("http://localhost:3000/blogs");
 
-    console.log(await this.page.cookies());
-
     await this.page.waitFor('a[href="/auth/logout"]');
   }
 

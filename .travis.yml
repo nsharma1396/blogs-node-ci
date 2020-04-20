@@ -21,7 +21,7 @@ install:
   - npm run build
 script:
   - nohup npm run start &
-  - sleep 3
+  - sleep 10
   - npm run test
 # allow headful tests
 before_install:
