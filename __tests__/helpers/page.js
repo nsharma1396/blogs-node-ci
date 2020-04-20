@@ -19,6 +19,9 @@ class CustomPage {
   }
 
   constructor(page) {
+    /**
+     * @type {CustomPage & import ("puppeteer").Page}
+     */
     this.page = page;
   }
 
@@ -26,10 +29,37 @@ class CustomPage {
     const user = await userFactory();
     const { session, sig } = sessionFactory(user);
 
-    await this.page.setCookie({ name: "session", value: session });
-    await this.page.setCookie({ name: "session.sig", value: sig });
+    const cookies = [
+      {
+        // });
+        // await this.page.setCookie({
+        name: "express:sess.sig",
+        // expires:
+        //   new Date(Date.now() + 1 * 1000 * 60 * 60 * 24).getTime() / 1000, // Date.now() + 10 * 1000 * 24,
+        // session: true,
+        value: sig,
+        // httpOnly: true,
+        // domain: "localhost",
+        // url: "http://localhost:3000",
+      },
+      {
+        name: "express:sess",
+        // expires:
+        //   new Date(Date.now() + 1 * 1000 * 60 * 60 * 24).getTime() / 1000, // Date.now() + 10 * 1000 * 24,
+        // session: true,
+        value: session,
+        // httpOnly: true,
+        // domain: "localhost",
+        // url: "http://localhost:3000",
+      },
+    ];
+
+    await this.page.setCookie(...cookies);
     // await this.page.goto("http://localhost:3000");
+
     await this.page.goto("http://localhost:3000/blogs");
+
+    console.log(await this.page.cookies());
 
     await this.page.waitFor('a[href="/auth/logout"]');
   }
